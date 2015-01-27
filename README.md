@@ -1,6 +1,6 @@
 # SoclAll
 
-[![build status](https://secure.travis-ci.org/pvorb/node-md5.png)](http://travis-ci.org/pvorb/node-md5)
+[![build status](https://secure.travis-ci.org/pvorb/node-md5.png)](https://github.com/sandklock/soclall-api-npm)
 
 SoclAll API library for Node.js
 
@@ -81,10 +81,3 @@ If you encounter any bugs or issues, feel free to open an issue at [github](http
 ## Credits
 
 [SandKlock](http://www.sandklock.com)
-
-
-## License
-
-The SoclAll API for Node.js is licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
