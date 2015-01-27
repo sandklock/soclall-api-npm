@@ -4,17 +4,15 @@ module.exports = function SoclAll(app_id, app_secret){
 	
 	this.app_id = app_id;
 	this.app_secret = app_secret;
-	this.login_url = 'http://localhost/plurk1/login';
-	this.service_url = 'http://localhost/plurk1/service';
 	
 	this.getLoginUrl = function(network){
-		return this.login_url+'/'+network+'?app_id='+this.app_id;
+		return 'http://api.soclall.com/login/'+network+'?app_id='+this.app_id;
 	}
 	
 	this.getInfo = function(network,token,callback){
 	
 		//var url = this.service_url+'/'+network+'/getinfo?sk_token='+token;
-		var url = '/plurk1/service'+'/'+network+'/getinfo?sk_token='+token;
+		var url = '/service/'+network+'/getinfo?sk_token='+token;
 		
 		makeRequest(url,'',false,function(response){
 			callback(response);
@@ -22,14 +20,11 @@ module.exports = function SoclAll(app_id, app_secret){
 	}
 	
 	this.getFriends = function(network,token,callback){
-	
-		//var url = this.service_url+'/'+network+'/getfriend?sk_token='+token;
-		var url = '/plurk1/service'+'/'+network+'/getfriend?sk_token='+token;
+		var url = '/service/'+network+'/getfriend?sk_token='+token;
 	
 		makeRequest(url,'',false,function(response){
 			callback(response);
-		});	
-	
+		});
 	}
 	
 	this.postStream = function(network,token,message,callback){
@@ -49,8 +44,7 @@ module.exports = function SoclAll(app_id, app_secret){
 		//sig = this.signRequest(data,this._app_secret);
 	
 		//url = this._service_url.'/'.this._network.'/poststream?sk_token='.this._sk_token.'&sig='.sig;
-		//var url = this.service_url+'/'+network+'/poststream?sk_token='+token;
-		var url = '/plurk1/service'+'/'+network+'/poststream?sk_token='+token;
+		var url = '/service/'+network+'/poststream?sk_token='+token;
 		
 		makeRequest(url,params,true,function(response){
 			callback(response);
@@ -79,12 +73,11 @@ module.exports = function SoclAll(app_id, app_secret){
 		
 		//url = this._service_url.'/'.this._network.'/sendmessage?sk_token='.this._sk_token.'&sig='.sig;
 		//url = this.service_url+'/'+network+'/sendmessage?sk_token='+token;
-		var url = '/plurk1/service'+'/'+network+'/sendmessage?sk_token='+token;
+		var url = '/service'+'/'+network+'/sendmessage?sk_token='+token;
 		
 		makeRequest(url,params,true,function(response){
 			callback(response);
-		});	
-	
+		});
 	}
 	
 	function getDataToSign(network,method,params){
@@ -107,13 +100,16 @@ module.exports = function SoclAll(app_id, app_secret){
 		
 		if(post){
 		
+			if(!params)
+				return;
+		
 			queryParams = buildQueryParams(params);
 		
 			var headers = {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			};
 			var options = {
-				host: 'localhost',
+				host: 'api.soclall.com',
 				path: url,
 				method: 'POST',
 				headers: headers,
@@ -153,7 +149,7 @@ module.exports = function SoclAll(app_id, app_secret){
 				'Content-Type': 'application/x-www-form-urlencoded',
 			};
 			var options = {
-				host: 'localhost',
+				host: 'api.soclall.com',
 				path: url,
 				method: 'GET',
 				headers: headers
@@ -173,13 +169,9 @@ module.exports = function SoclAll(app_id, app_secret){
 				response.on('end', function() {
 					return callback && callback(JSON.parse(responseString));
 				});
-				
-				
 			});
 			saRequest.end();
-
 		}
-
 	}
 	
 	function signRequest(data){
@@ -192,7 +184,6 @@ module.exports = function SoclAll(app_id, app_secret){
 			str_data += key+'='+data[key];
 	
 		return md5(this.app_secret+str_data);
-	
 	}
 	
 	var md5=(function(){function e(e,t){var o=e[0],u=e[1],a=e[2],f=e[3];o=n(o,u,a,f,t[0],7,-680876936);f=n(f,o,u,a,t[1],
