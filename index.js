@@ -1,6 +1,6 @@
 var http = require('http');
 
-module.exports = function SoclAll(app_id,app_secret){
+module.exports = function SoclAll(app_id, app_secret){
 	
 	this.app_id = app_id;
 	this.app_secret = app_secret;
@@ -15,12 +15,10 @@ module.exports = function SoclAll(app_id,app_secret){
 	
 		//var url = this.service_url+'/'+network+'/getinfo?sk_token='+token;
 		var url = '/plurk1/service'+'/'+network+'/getinfo?sk_token='+token;
-			
-			
+		
 		makeRequest(url,'',false,function(response){
 			callback(response);
 		});		
-		
 	}
 	
 	this.getFriends = function(network,token,callback){
@@ -121,8 +119,6 @@ module.exports = function SoclAll(app_id,app_secret){
 				headers: headers,
 			};
 			
-			console.log(md5('gamegame'));
-			
 			var saRequest = http.request(options, function (response){
 				var responseString = '';
 				
@@ -181,16 +177,7 @@ module.exports = function SoclAll(app_id,app_secret){
 				
 			});
 			saRequest.end();
-		
-		
-			/*_request.get(url,function(err,httpResponse,body){
-			
-				if(err) return callback && callback(err);
-				
-				if (!err && httpResponse.statusCode == 200)
-					return callback && callback(err,JSON.parse(body));
-					
-			});*/
+
 		}
 
 	}
