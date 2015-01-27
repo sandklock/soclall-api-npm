@@ -1,5 +1,4 @@
-var SoclAll = require('./index.js')
-	,	soclall = new SoclAll('54c1cd605f0c9ea42e08109b','vYtnzekp68tlJcxwpRuq');
+var soclall = require('./index.js')('54c1cd605f0c9ea42e08109b','vYtnzekp68tlJcxwpRuq');
 
 var login_url = soclall.getLoginUrl('twitter');
 	console.log(login_url);

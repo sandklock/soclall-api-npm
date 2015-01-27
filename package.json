@@ -1,7 +1,7 @@
 {
-  "name": "soclall-api-npm",
+  "name": "soclall-api",
   "description": "SoclAll API for Node.js",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": {
     "name": "SandKlock",
     "url": "http://www.sandklock.com"

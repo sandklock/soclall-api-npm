@@ -1,6 +1,10 @@
 var http = require('http');
 
-module.exports = function SoclAll(app_id, app_secret){
+module.exports = function(app_id, app_secret){
+	return new SoclAll(app_id, app_secret);
+};
+
+var SoclAll = function (app_id, app_secret){
 	
 	this.app_id = app_id;
 	this.app_secret = app_secret;
