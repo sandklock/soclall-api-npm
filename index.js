@@ -16,8 +16,8 @@ module.exports = function SoclAll(app_id, app_secret){
 			method: 'getinfo'
 		};
 		
-		makeRequest(params,function(response){
-			callback && callback(null, response);
+		makeRequest(params,function(err, response){
+			callback && callback(err, response);
 		});		
 	}
 	
@@ -28,8 +28,8 @@ module.exports = function SoclAll(app_id, app_secret){
 			method: 'getfriend'
 		};
 	
-		makeRequest(params,function(response){
-			callback && callback(null, response);
+		makeRequest(params,function(err, response){
+			callback && callback(err, response);
 		});
 	}
 	
@@ -48,8 +48,8 @@ module.exports = function SoclAll(app_id, app_secret){
 		if(network == 'linkedin')
 			params.type = 'comment';
 		
-		makeRequest(params,function(response){
-			callback && callback(null, response);
+		makeRequest(params,function(err, response){
+			callback && callback(err, response);
 		});	
 	
 	}
@@ -69,8 +69,8 @@ module.exports = function SoclAll(app_id, app_secret){
 
 		if(title) params.title = title;
 		
-		makeRequest(params,function(response){
-			callback && callback(null, response);
+		makeRequest(params,function(err, response){
+			callback && callback(err, response);
 		});
 	}
 	
@@ -91,26 +91,28 @@ module.exports = function SoclAll(app_id, app_secret){
 			method: 'POST',
 			headers: headers
 		};
-		
+		console.log(queryParams);
 		var saRequest = http.request(options, function (response){
 			var responseString = '';
-			var isErr = false;
+			var error = null;
 			
 			response.on('data', function(data) {
 				responseString += data;
 			});
 			
 			response.on('error', function(err) {
-				isErr = true;
-				callback && callback(err);
+				error = err;
 			});
 			
 			response.on('end', function() {
-				console.log(responseString)
-				if(!isErr)
-					callback && callback(null, JSON.parse(responseString));
+				// try to parse response to json
+				var resJson = {error: 'Invalid response'};
+				try{
+					resJson = JSON.parse(responseString.trim());
+				}	catch(e){}
+
+				callback && callback(error, resJson);
 			});
-			
 		});
 		saRequest.write(queryParams);			
 		saRequest.end();

@@ -1,0 +1,22 @@
+{
+  "name": "soclall-api-npm",
+  "description": "SoclAll API for Node.js",
+  "version": "1.0.0",
+  "author": {
+    "name": "SandKlock",
+    "url": "http://www.sandklock.com"
+  },
+  "homepage": "https://github.com/sandklock/soclall-api-npm",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandklock/soclall-api-npm"
+  },
+  "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/sandklock/soclall-api-npm/issues"
+  },
+  "keywords":[
+    "soclall"
+  ],
+  "license": "MIT"
+}
