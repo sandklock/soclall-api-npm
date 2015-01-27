@@ -57,7 +57,7 @@ sendMessage(token, message, friends, title, callback)
 ~~~ javascript
 var soclall = require('soclall-api')(app_id, secret_key);
 
-var login_url = soclall.getLoginUrl('facebook');
+console.log(soclall.getLoginUrl('facebook'));
 ~~~
 
 ## Networks
@@ -85,6 +85,6 @@ If you encounter any bugs or issues, feel free to open an issue at [github](http
 
 ## License
 
-Except as otherwise noted, the SoclAll API for Node.js is licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
+The SoclAll API for Node.js is licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.

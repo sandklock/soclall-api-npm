@@ -1,7 +1,7 @@
 {
   "name": "soclall-api",
   "description": "SoclAll API for Node.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": {
     "name": "SandKlock",
     "url": "http://www.sandklock.com"
@@ -18,5 +18,5 @@
   "keywords":[
     "soclall"
   ],
-  "license": "MIT"
+  "license": "Apache License, Version 2.0"
 }
