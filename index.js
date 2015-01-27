@@ -10,26 +10,34 @@ module.exports = function SoclAll(app_id, app_secret){
 	}
 	
 	this.getInfo = function(network,token,callback){
-	
-		//var url = this.service_url+'/'+network+'/getinfo?sk_token='+token;
-		var url = '/service/'+network+'/getinfo?sk_token='+token;
+		var params = {
+			network: network,
+			sk_token: token,
+			method: 'getinfo'
+		};
 		
-		makeRequest(url,'',false,function(response){
-			callback(response);
+		makeRequest(params,function(response){
+			callback && callback(response);
 		});		
 	}
 	
 	this.getFriends = function(network,token,callback){
-		var url = '/service/'+network+'/getfriend?sk_token='+token;
+		var params = {
+			network: network,
+			sk_token: token,
+			method: 'getfriend'
+		};
 	
-		makeRequest(url,'',false,function(response){
-			callback(response);
+		makeRequest(params,function(response){
+			callback && callback(response);
 		});
 	}
 	
 	this.postStream = function(network,token,message,callback){
-	
 		var params = {
+			network: network,
+			method: 'poststream',
+			sk_token: token,
 			message:message
 		};
 		
@@ -39,15 +47,9 @@ module.exports = function SoclAll(app_id, app_secret){
 			params.type = 'text';
 		if(network == 'linkedin')
 			params.type = 'comment';
-
-		//data = this.getDataToSign(network,'poststream',params);
-		//sig = this.signRequest(data,this._app_secret);
-	
-		//url = this._service_url.'/'.this._network.'/poststream?sk_token='.this._sk_token.'&sig='.sig;
-		var url = '/service/'+network+'/poststream?sk_token='+token;
 		
-		makeRequest(url,params,true,function(response){
-			callback(response);
+		makeRequest(params,function(response){
+			callback && callback(response);
 		});	
 	
 	}
@@ -55,123 +57,71 @@ module.exports = function SoclAll(app_id, app_secret){
 	this.sendMessage = function(network,token,message,friends,title,callback){
 	
 		if(friends.constructor !== Array)
-			return;
+			callback && callback('Missing params');
 	
 		var params = {
+			network: network,
+			method: 'sendmessage',
+			sk_token: token,
 			friend_id: friends.join(','),
-			message: message,
+			message: message
 		};
-	
-		if(network == 'linkedin' || network == 'tumblr'){
-			if(!title)
-				return;
-			params.title = title;
-		}
+
+		if(title) params.title = title;
 		
-		//data = this.getDataToSign(network,'sendmessage',params);
-		//sig = this.signRequest(data,this._app_secret);
-		
-		//url = this._service_url.'/'.this._network.'/sendmessage?sk_token='.this._sk_token.'&sig='.sig;
-		//url = this.service_url+'/'+network+'/sendmessage?sk_token='+token;
-		var url = '/service'+'/'+network+'/sendmessage?sk_token='+token;
-		
-		makeRequest(url,params,true,function(response){
-			callback(response);
+		makeRequest(url,params,function(response){
+			callback && callback(response);
 		});
 	}
 	
-	function getDataToSign(network,method,params){
-		var data = {
-			network: network,
-			sk_token: token,
-			method: method,
+	function makeRequest(params,callback){
+
+		// TODO: build signature here!!!
+		// sig = this.signRequest(params,this.app_secret);
+		// params.sig = sig;
+		
+		var queryParams = params ? buildQueryParams(params) : '';
+	
+		var headers = {
+			'Content-Type': 'application/x-www-form-urlencoded',
+		};
+		var options = {
+			host: 'api.soclall.com',
+			path: '/service',
+			method: 'POST',
+			headers: headers
 		};
 		
-		if(params){
-			var result = {};
-			for(var key in data) result[key]=data[key];
-			for(var key in params) result[key]=params[key];
-		}
-		
-		return result;
-	}
-	
-	function makeRequest(url,params,post,callback){
-		
-		if(post){
-		
-			if(!params)
-				return;
-		
-			queryParams = buildQueryParams(params);
-		
-			var headers = {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			};
-			var options = {
-				host: 'api.soclall.com',
-				path: url,
-				method: 'POST',
-				headers: headers,
-			};
+		var saRequest = http.request(options, function (response){
+			var responseString = '';
+			var isErr = false;
 			
-			var saRequest = http.request(options, function (response){
-				var responseString = '';
-				
-				response.on('data', function(data) {
-					responseString += data;
-				});
-				
-				response.on('error', function(e) {
-					return callback && callback(e.message);
-				});
-				
-				response.on('end', function() {
-					return callback && callback(JSON.parse(responseString));
-				});
-				
+			response.on('data', function(data) {
+				responseString += data;
 			});
-			saRequest.write(queryParams);			
-			saRequest.end();
-		
-			/*_request.post({url:url, form:params}, function(err,httpResponse,body){
-				
-				if(err) return callback && callback(err);
-				
-				if (!err && httpResponse.statusCode == 200)
-					return callback && callback(err,JSON.parse(body));
-					
-			});*/
-		}
-		else{
-		
-			var headers = {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			};
-			var options = {
-				host: 'api.soclall.com',
-				path: url,
-				method: 'GET',
-				headers: headers
-			};
-
-			var saRequest = http.request(options, function (response){
-				var responseString = '';
-				
-				response.on('data', function(data) {
-					responseString += data;
-				});
-				
-				response.on('error', function(e) {
-					return callback && callback(e.message);
-				});
-				
-				response.on('end', function() {
-					return callback && callback(JSON.parse(responseString));
-				});
+			
+			response.on('error', function(err) {
+				isErr = true;
+				callback && callback(err);
 			});
-			saRequest.end();
-		}
+			
+			response.on('end', function() {
+				if(!isErr)
+					callback && callback(JSON.parse(responseString));
+			});
+			
+		});
+		saRequest.write(queryParams);			
+		saRequest.end();
+		
+		/*_request.post({url:url, form:params}, function(err,httpResponse,body){
+			
+			if(err) return callback && callback(err);
+			
+			if (!err && httpResponse.statusCode == 200)
+				return callback && callback(err,JSON.parse(body));
+				
+		});*/
 	}
 	
 	function signRequest(data){
@@ -318,27 +268,23 @@ function m(e,t){return e+t&4294967295}var a="0123456789abcdef".split("");return 
 	  sep = sep || '&';
 	  eq = eq || '=';
 	  if (obj === null) {
-		obj = undefined;
+			obj = undefined;
 	  }
 
 	  if (typeof obj === 'object') {
-		return Object.keys(obj).map(function(k) {
-		  var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
-		  if (Array.isArray(obj[k])) {
-			return obj[k].map(function(v) {
-			  return ks + encodeURIComponent(stringifyPrimitive(v));
+			return Object.keys(obj).map(function(k) {
+			  var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+			  if (Array.isArray(obj[k])) {
+				return obj[k].map(function(v) {
+				  return ks + encodeURIComponent(stringifyPrimitive(v));
+				}).join(sep);
+			  } else {
+				return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
+			  }
 			}).join(sep);
-		  } else {
-			return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
-		  }
-		}).join(sep);
-
 	  }
-
 	  if (!name) return '';
 	  return encodeURIComponent(stringifyPrimitive(name)) + eq +
 			 encodeURIComponent(stringifyPrimitive(obj));
-	}
-	
+	}	
 }
-
