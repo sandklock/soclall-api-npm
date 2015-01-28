@@ -6,7 +6,7 @@
     "name": "SandKlock",
     "url": "http://www.sandklock.com"
   },
-  "homepage": "https://github.com/sandklock/soclall-api-npm",
+  "homepage": "http://www.soclall.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/sandklock/soclall-api-npm"
@@ -19,7 +19,7 @@
     "soclall",
     "social",
     "login",
-    "connect",
+    "network",
     "invite",
     "posting",
     "openid"
