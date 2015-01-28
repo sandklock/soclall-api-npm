@@ -1,7 +1,7 @@
 {
   "name": "soclall-api",
   "description": "SoclAll API for Node.js",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "author": {
     "name": "SandKlock",
     "url": "http://www.sandklock.com"
@@ -15,8 +15,19 @@
   "bugs": {
     "url": "https://github.com/sandklock/soclall-api-npm/issues"
   },
-  "keywords":[
-    "soclall"
+  "keywords": [
+    "soclall",
+    "social",
+    "login",
+    "connect",
+    "invite",
+    "posting",
+    "openid"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "MD5": "^1.2.1",
+    "phpjs": "^1.3.2",
+    "underscore": "^1.7.0"
+  }
 }

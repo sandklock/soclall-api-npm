@@ -1,7 +1,5 @@
 # SoclAll
 
-[![build status](https://secure.travis-ci.org/pvorb/node-md5.png)](https://github.com/sandklock/soclall-api-npm)
-
 SoclAll API library for Node.js
 
 ## Installation
@@ -9,7 +7,16 @@ SoclAll API library for Node.js
 ```
 npm install soclall-api
 ```
+Go to [SoclAll](http://www.soclall.com) and register an application for free.
 
+## Usage
+
+~~~ javascript
+var SoclAll = require('soclall-api')
+  , s = new SoclAll(app_id, secret_key);
+
+console.log(s.getLoginUrl('facebook'));
+~~~
 
 ## API
 
@@ -52,14 +59,6 @@ sendMessage(token, message, friends, title, callback)
   * `title` -- `string`
   * `callback` -- `function(err)`
 
-## Usage
-
-~~~ javascript
-var soclall = require('soclall-api')(app_id, secret_key);
-
-console.log(soclall.getLoginUrl('facebook'));
-~~~
-
 ## Networks
 
 * facebook
@@ -76,7 +75,6 @@ console.log(soclall.getLoginUrl('facebook'));
 ## Bugs and Issues
 
 If you encounter any bugs or issues, feel free to open an issue at [github](https://github.com/sandklock/soclall-api-npm/issues).
-
 
 ## Credits
 
