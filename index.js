@@ -9,8 +9,8 @@ module.exports = function(app_id, app_secret){
 	this.app_id = app_id;
 	this.app_secret = app_secret;
 	
-	this.getLoginUrl = function(network){
-		return 'http://api.soclall.com/login/'+network+'?app_id='+this.app_id;
+	this.getLoginUrl = function(network, callback_url){
+		return 'https://api.soclall.com/login/'+network+'/?'+querystring.stringify({app_id: app_id,callback: callback_url});
 	}
 	
 	this.getUser = function(token,callback){

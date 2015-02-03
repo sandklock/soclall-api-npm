@@ -15,16 +15,17 @@ Go to [SoclAll](http://www.soclall.com) and register an application for free.
 var SoclAll = require('soclall-api')
   , s = new SoclAll(app_id, secret_key);
 
-console.log(s.getLoginUrl('facebook'));
+console.log(s.getLoginUrl('facebook', 'http://yourdomain.com/callback'));
 ~~~
 
 ## API
 
 ~~~ javascript
-getLoginUrl(network)
+getLoginUrl(network, callback_url)
 ~~~
 
   * `network` -- `string` -- see [networks](#networks)
+  * `callback_url` -- `string`
   * returns `string` login url
   
 ~~~ javascript
