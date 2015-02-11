@@ -6,9 +6,6 @@ var http = require('http')
 
 module.exports = function(app_id, app_secret){
 	
-	this.app_id = app_id;
-	this.app_secret = app_secret;
-	
 	this.getLoginUrl = function(network, callback_url,scope){
 		return 'https://api.soclall.com/login/'+network+'/?'+querystring.stringify({app_id: app_id,callback: callback_url,scope:scope});
 	}
@@ -63,6 +60,9 @@ module.exports = function(app_id, app_secret){
 		// var sig = signRequest(params, this.app_secret);
 		// params.sig = sig;
 		
+		var sig = signRequest(path,params);
+		params.sig = sig;		
+		
 		var queryParams = params ? querystring.stringify(params) : '';
 
 		var headers = {
@@ -99,13 +99,27 @@ module.exports = function(app_id, app_secret){
 		saRequest.end();
 	}
 	
-	function signRequest(data){
+	function signRequest(path,data){
+	
+		var method;
+		
+		if(path == '/user')
+			method = 'getuser';
+		if(path == '/friends')
+			method = 'getfriends';
+		if(path == '/publish')
+			method = 'poststream';
+		if(path == '/message')
+			method = 'sendmessage';
+	
+		data.method = method;
+	
 		data = php.ksort(data);
 		
 		var str_data = '';
 		for(var key in data)
 			str_data += key+'='+data[key];
 	
-		return md5(this.app_secret+str_data);
+		return md5(app_secret+str_data);
 	}
 }
