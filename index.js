@@ -9,36 +9,33 @@ module.exports = function(app_id, app_secret){
 	this.app_id = app_id;
 	this.app_secret = app_secret;
 	
-	this.getLoginUrl = function(network, callback_url){
-		return 'https://api.soclall.com/login/'+network+'/?'+querystring.stringify({app_id: app_id,callback: callback_url});
+	this.getLoginUrl = function(network, callback_url,scope){
+		return 'https://api.soclall.com/login/'+network+'/?'+querystring.stringify({app_id: app_id,callback: callback_url,scope:scope});
 	}
 	
 	this.getUser = function(token,callback){
 		var params = {
 			token: token,
-			method: 'getuser'
 		};
 		
-		doRequest(params, callback);		
+		doRequest('/user',params, callback);		
 	}
 	
 	this.getFriends = function(token,callback){
 		var params = {
 			token: token,
-			method: 'getfriends'
 		};
 	
-		doRequest(params, callback);
+		doRequest('/friends',params, callback);
 	}
 	
 	this.postStream = function(token,message,callback){
 		var params = {
 			token: token,
-			method: 'poststream',
 			message:message
 		};
 		
-		doRequest(params, callback);	
+		doRequest('/publish',params, callback);	
 	}
 	
 	this.sendMessage = function(token,message,friends,title,callback){
@@ -48,7 +45,6 @@ module.exports = function(app_id, app_secret){
 	
 		var params = {
 			token: token,
-			method: 'sendmessage',
 			message: message,
 			friend_id: friends.join(',')
 		};
@@ -58,10 +54,10 @@ module.exports = function(app_id, app_secret){
 		else if(_.isString(title))
 			params.title = title;
 		
-		doRequest(params, callback);
+		doRequest('/message',params, callback);
 	}
 	
-	function doRequest(params,callback){
+	function doRequest(path,params,callback){
 
 		// TODO: build signature here!!!
 		// var sig = signRequest(params, this.app_secret);
@@ -74,7 +70,7 @@ module.exports = function(app_id, app_secret){
 		};
 		var options = {
 			host: 'api.soclall.com',
-			path: '/service',
+			path: path,
 			method: 'POST',
 			headers: headers
 		};
