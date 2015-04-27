@@ -12,7 +12,7 @@ module.exports = function(app_id, app_secret){
 	
 	this.getUser = function(token,callback){
 		var params = {
-			token: token,
+			token: token
 		};
 		
 		doRequest('/user',params, callback);		
@@ -20,7 +20,7 @@ module.exports = function(app_id, app_secret){
 	
 	this.getFriends = function(token,callback){
 		var params = {
-			token: token,
+			token: token
 		};
 	
 		doRequest('/friends',params, callback);
@@ -56,11 +56,7 @@ module.exports = function(app_id, app_secret){
 	
 	function doRequest(path,params,callback){
 
-		// TODO: build signature here!!!
-		// var sig = signRequest(params, this.app_secret);
-		// params.sig = sig;
-		
-		var sig = signRequest(path,params);
+		var sig = signRequest(params);
 		params.sig = sig;		
 		
 		var queryParams = params ? querystring.stringify(params) : '';
@@ -90,7 +86,7 @@ module.exports = function(app_id, app_secret){
 				var resJson = {error: 'Invalid response'};
 
 				// try to parse response to json
-				try{ resJson = JSON.parse(responseString.trim());	}	catch(e){}
+				try{ resJson = JSON.parse(responseString.trim());	}	catch(e){error = e;}
 
 				callback && callback(error, resJson);
 			});
@@ -99,20 +95,7 @@ module.exports = function(app_id, app_secret){
 		saRequest.end();
 	}
 	
-	function signRequest(path,data){
-	
-		var method;
-		
-		if(path == '/user')
-			method = 'getuser';
-		if(path == '/friends')
-			method = 'getfriends';
-		if(path == '/publish')
-			method = 'poststream';
-		if(path == '/message')
-			method = 'sendmessage';
-	
-		data.method = method;
+	function signRequest(data){
 	
 		data = php.ksort(data);
 		
