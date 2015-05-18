@@ -78,15 +78,17 @@ module.exports = function(app_id, app_secret){
 				responseString += data;
 			});
 			
-			response.on('error', function(err) {
-				error = err;
+			response.on('error', function(e) {
+				error = e;
 			});
 			
 			response.on('end', function() {
-				var resJson = {error: 'Invalid response'};
+				var resJson = {};
 
 				// try to parse response to json
 				try{ resJson = JSON.parse(responseString.trim());	}	catch(e){error = e;}
+
+				if(_.has(resJson, 'error')) error = new Error(resJson.error);
 
 				callback && callback(error, resJson);
 			});

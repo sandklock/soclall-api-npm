@@ -5,14 +5,14 @@ SoclAll API library for Node.js
 ## Installation
 
 ```
-npm install soclall-api
+npm install soclall
 ```
 Go to [SoclAll](http://www.soclall.com) and register an application for free.
 
 ## Usage
 
 ~~~ javascript
-var SoclAll = require('soclall-api')
+var SoclAll = require('soclall')
   , s = new SoclAll(app_id, secret_key);
 
 console.log(s.getLoginUrl('facebook', 'http://yourdomain.com/callback'));
@@ -72,6 +72,11 @@ sendMessage(token, message, friends, title, callback)
 * mailru
 * reddit
 * lastfm
+* vkontakte
+* disqus
+* wordpress
+* foursquare
+* github
 
 ## Bugs and Issues
 
