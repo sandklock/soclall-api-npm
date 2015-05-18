@@ -2,6 +2,8 @@
 
 SoclAll API library for Node.js
 
+Note: [SoclAll](http://www.soclall.com) is an unified API for 20+ popular social networks that supports social login, posting (supported video & photo), messaging and friends inviting.
+
 ## Installation
 
 ```
