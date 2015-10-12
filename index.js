@@ -7,7 +7,7 @@ var http = require('http')
 module.exports = function(app_id, app_secret){
 	
 	this.getLoginUrl = function(network, callback_url,scope){
-		return 'https://api.soclall.com/login/'+network+'/?'+querystring.stringify({app_id: app_id,callback: callback_url,scope:scope});
+		return 'https://api2.socialall.io/login/'+network+'/?'+querystring.stringify({app_id: app_id,callback: callback_url,scope:scope});
 	}
 	
 	this.getUser = function(token,callback){
@@ -65,7 +65,7 @@ module.exports = function(app_id, app_secret){
 			'Content-Type': 'application/x-www-form-urlencoded',
 		};
 		var options = {
-			host: 'api.soclall.com',
+			host: 'api2.socialall.io',
 			path: path,
 			method: 'POST',
 			headers: headers
