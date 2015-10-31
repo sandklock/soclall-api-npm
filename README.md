@@ -2,6 +2,8 @@
 
 SocialAll API library for Node.js
 
+Note: [SocialAll](https://www.socialall.io) is an unified API for 15+ popular social networks that supports social login, posting (supported video & photo), messaging and friends inviting.
+
 ## Installation
 
 ```
