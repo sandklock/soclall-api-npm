@@ -1,12 +1,12 @@
 {
-  "name": "soclall",
-  "description": "SoclAll API for Node.js",
-  "version": "0.0.8",
+  "name": "socialall",
+  "description": "SocialAll library for Node.js",
+  "version": "0.0.9",
   "author": {
     "name": "SandKlock",
     "url": "http://www.sandklock.com"
   },
-  "homepage": "http://www.soclall.com",
+  "homepage": "https://www.socialall.io",
   "repository": {
     "type": "git",
     "url": "https://github.com/sandklock/soclall-api-npm"
@@ -16,13 +16,29 @@
     "url": "https://github.com/sandklock/soclall-api-npm/issues"
   },
   "keywords": [
+    "socialall",
     "soclall",
     "social",
     "login",
     "network",
     "invite",
     "posting",
-    "openid"
+    "openid",
+    "disqus",
+    "facebook",
+    "foursquare",
+    "github",
+    "google",
+    "lastfm",
+    "linkedin",
+    "live",
+    "mailru",
+    "plurk",
+    "reddit",
+    "tumblr",
+    "twitter",
+    "vkontakte",
+    "wordpress"
   ],
   "license": "MIT",
   "dependencies": {
@@ -31,3 +47,4 @@
     "underscore": "^1.7.0"
   }
 }
+

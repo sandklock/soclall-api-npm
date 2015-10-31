@@ -1,57 +1,57 @@
-# SoclAll
+# SocialAll
 
-SoclAll API library for Node.js
+SocialAll API library for Node.js
 
 ## Installation
 
 ```
-npm install soclall
+$ npm install socialall
 ```
-Go to [SoclAll](http://www.soclall.com) and register an application for free.
+Go to [SocialAll](https://www.socialall.io) and register an application for free.
 
 ## Usage
 
 ~~~ javascript
-var SoclAll = require('soclall')
-  , s = new SoclAll(app_id, secret_key);
+var SocialAll = require('socialall')
+  , sa = new SocialAll(app_id, secret_key);
 
-console.log(s.getLoginUrl('facebook', 'http://yourdomain.com/callback'));
+console.log(sa.getLoginUrl('facebook', 'http://yourdomain.com/callback'));
 ~~~
 
 ## API
 
 ~~~ javascript
-getLoginUrl(network, callback_url)
+sa.getLoginUrl(network, callback_url)
 ~~~
 
   * `network` -- `string` -- see [networks](#networks)
   * `callback_url` -- `string`
   * returns `string` login url
-  
+
 ~~~ javascript
-getUser(token, callback)
+sa.getUser(token, callback)
 ~~~
 
   * `token` -- `string`
   * `callback` -- `function(err, user)`
 
 ~~~ javascript
-getFriends(token, callback)
+sa.getFriends(token, callback)
 ~~~
 
-  * `token` -- `string` -- token given by SoclAll
+  * `token` -- `string` -- token given by SocialAll
   * `callback` -- `function(err, friends)`
 
 ~~~ javascript
-postStream(token, message, callback)
+sa.postStream(token, message, callback)
 ~~~
 
   * `token` -- `string`
   * `message` -- `string`
   * `callback` -- `function(err)`
-  
+
 ~~~ javascript
-sendMessage(token, message, friends, title, callback)
+sa.sendMessage(token, message, friends, title, callback)
 ~~~
 
   * `token` -- `string`
@@ -62,21 +62,21 @@ sendMessage(token, message, friends, title, callback)
 
 ## Networks
 
-* facebook
-* twitter
-* google
-* linkedin
-* live
-* plurk
-* tumblr
-* mailru
-* reddit
-* lastfm
-* vkontakte
 * disqus
-* wordpress
+* facebook
 * foursquare
 * github
+* google
+* lastfm
+* linkedin
+* live
+* mailru
+* plurk
+* reddit
+* tumblr
+* twitter
+* vkontakte
+* wordpress
 
 ## Bugs and Issues
 
