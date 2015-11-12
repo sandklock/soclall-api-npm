@@ -98,7 +98,7 @@ module.exports = function (app_id, app_secret) {
 
 				if (_.has(resJson, 'error')) error = new Error(resJson.error);
 
-				callback && callback(error, resJson);
+				callback && callback(error, resJson.result);
 			});
 		});
 
