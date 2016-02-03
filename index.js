@@ -39,6 +39,33 @@ module.exports = function (app_id, app_secret) {
 		sendRequest('/publish', params, callback);
 	};
 
+	this.getPages = function (token, callback) {
+		var params = {
+			token: token
+		};
+
+		sendRequest('/pages', params, callback);
+	};
+
+	this.postPage = function (token, page_id, page_token, message, callback) {
+		var params = {
+			token: token,
+			page_id: page_id,
+			page_token: page_token,
+			message: message
+		};
+
+		sendRequest('/publish_page', params, callback);
+	};
+
+	this.summary = function (app_id, callback) {
+		var params = {
+			app_id: app_id
+		};
+
+		sendRequest('/summary', params, callback);
+	};
+
 	this.sendMessage = function (token, message, friends, title, callback) {
 
 		if (!_.isArray(friends) || friends.length == 0)
