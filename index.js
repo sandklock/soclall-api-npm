@@ -4,10 +4,12 @@ var http = require('http'),
 	querystring = require('querystring'),
 	php = require('phpjs');
 
+var HOST = process.env.SOCIALALL_HOST || 'api2.socialall.io';
+
 module.exports = function (app_id, app_secret) {
 
 	this.getLoginUrl = function (network, callback_url, scope) {
-		return 'https://api2.socialall.io/login/' + network + '/?' + querystring.stringify({
+		return 'https://'+HOST+'/login/' + network + '/?' + querystring.stringify({
 			app_id: app_id,
 			callback: callback_url,
 			scope: scope
@@ -96,7 +98,7 @@ module.exports = function (app_id, app_secret) {
 			'Content-Type': 'application/x-www-form-urlencoded',
 		};
 		var options = {
-			host: 'api2.socialall.io',
+			host: HOST,
 			path: path,
 			method: 'POST',
 			headers: headers
